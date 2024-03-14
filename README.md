@@ -1,10 +1,6 @@
 # kernel_study
 Some learning methods about the linux kernel
 
-## Some tools commands
-
-- [vim](./commands/vim_command.md)	[ctags](./commands/ctags.md)
-
 ## How to debug kernel
 
 - [crash](./dbg_meth/crash.md)
@@ -22,3 +18,7 @@ When the system crashes, kdump collects core dump information and saves it to th
 ## some config
 
 - [you can refer here](./config)	These configurations will help you get started quickly./config)
+
+## Some tools commands
+
+- [vim](./commands/vim_command.md)	[ctags](./commands/ctags.md)
