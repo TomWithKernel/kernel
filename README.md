@@ -1,2 +1,2 @@
 # kernel_study
-Some learning materials about the linux kernel
+Some learning methods about the linux kernel
