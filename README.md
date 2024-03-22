@@ -1,4 +1,4 @@
-# kernel_study
+# kernel
 Some learning methods about the linux kernel
 
 ## How to debug kernel
