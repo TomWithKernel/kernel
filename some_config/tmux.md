@@ -1,6 +1,6 @@
 # tmux
 
-插件，`tmux-continuum` 放入~/.tmux文件夹
+插件，`tmux-continuum`  `plugins`放入~/.tmux文件夹
 
 ~/.tmux.conf
 
@@ -43,7 +43,24 @@ bind-key -n C-j split-window -h
 # 设置Ctrl+h为竖向分屏
 bind-key -n C-h split-window -v
 
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+set -g @plugin 'dracula/tmux'
+set -g @dracula-plugins "ssh-session cpu-usage ram-usage time"  #状态栏显示的内容
+set -g @dracula-show-flags true 
+set -g @dracula-show-left-icon session  # 最左侧的图标显示当前tmux session名称
+set -g @dracula-show-powerline true # 显示powerline,更美观
+set -g @dracula-time-format "%F %R" # 时间格式 
+
+#ls颜色
+#set -g default-terminal "tmux-256color"
+#set-option -a terminal-overrides ",*256col*:RGB"
+
+run '~/.tmux/plugins/tpm/tpm'
 run-shell ~/.tmux/tmux-continuum/continuum.tmux
+set -g @continuum-save-interval '60'
 ```
 
 `tmux source-file ~/.tmux.conf`
