@@ -1,6 +1,6 @@
 ## Suspend (kernel 5.10)
 
-- [state_store](#state sotre)
+- [state_store](#state_sotre)
 - [pm_suspend](#pm_suspend)
   
   - [enter_state](#enter_state)
