@@ -1,38 +1,42 @@
 ## Suspend (kernel 5.10)
 
 - [state_store](#state_sotre)
-- [pm_suspend](#pm_suspend)
-  
-  - [enter_state](#enter_state)
-      - [valid_state](#valid_state)
-    
-      - [suspend_prepare](#suspend_prepare)
-      - [sleep_state_supported](#sleep_state_supported)
-        - [pm_notifier_call_chain_robust](#pm_notifier_call_chain_robust)
-      
-        - [suspend_freeze_processes](#suspend_freeze_processes)
-          - [freeze_processes](#freeze_processes)
-        - [freeze_kernel_threads](#freeze_kernel_threads)
+
+  - [pm_suspend](#pm_suspend)
+
+      - [enter_state](#enter_state)
+
+        - [valid_state](#valid_state)
+
+        - [suspend_prepare](#suspend_prepare)
+        - [sleep_state_supported](#sleep_state_supported)
+          - [pm_notifier_call_chain_robust](#pm_notifier_call_chain_robust)
+
+          - [suspend_freeze_processes](#suspend_freeze_processes)
+            - [freeze_processes](#freeze_processes)
+
+          - [freeze_kernel_threads](#freeze_kernel_threads)
 
 
-      - [suspend_devices_and_enter](#suspend_devices_and_enter)
-        - [dpm_suspend_start](#dpm_suspend_start)
-          - [dpm_prepare](#dpm_prepare)
-          - [dpm_suspend](#dpm_suspend)
-            - [device_suspend](#device_suspend)
-        - [suspend_enter](#suspend_enter)
-          - [dpm_supsend_noirq](#dpm_suspend_noirq)
-            - [device_wakeup_arm_wake_irqs](#device_wakeup_arm_wake_irqs)
-            - [suspend_device_irqs](#suspend_device_irqs)
-              - [suspend_device_irq](#suspend_device_irq)
-            - [dpm_noirq_suspend_devices](#dpm_noirq_suspend_devices)
-              - [device_suspend_noirq](#device_suspend_noirq)
-          - [suspend_disable_secondary_cpus](#suspend_disable_secondary_cpus)
-            - [freeze_secondary_cpus](#freeze_secondary_cpus)
-          - [arch_suspend_disable_irqs](#arch_suspend_disable_irqs)
-            - [local_irq_disable](#local_irq_disable)
-          - [syscore_suspend](#syscore_suspend)
-          - [suspend_ops->enter](#suspend_ops->enter)
+          - [suspend_devices_and_enter](#suspend_devices_and_enter)
+            - [dpm_suspend_start](#dpm_suspend_start)
+              - [dpm_prepare](#dpm_prepare)
+              - [dpm_suspend](#dpm_suspend)
+                - [device_suspend](#device_suspend)
+            - [suspend_enter](#suspend_enter)
+              - [dpm_supsend_noirq](#dpm_suspend_noirq)
+                - [device_wakeup_arm_wake_irqs](#device_wakeup_arm_wake_irqs)
+                - [suspend_device_irqs](#suspend_device_irqs)
+                  - [suspend_device_irq](#suspend_device_irq)
+                - [dpm_noirq_suspend_devices](#dpm_noirq_suspend_devices)
+                  - [device_suspend_noirq](#device_suspend_noirq)
+              - [suspend_disable_secondary_cpus](#suspend_disable_secondary_cpus)
+                - [freeze_secondary_cpus](#freeze_secondary_cpus)
+              - [arch_suspend_disable_irqs](#arch_suspend_disable_irqs)
+                - [local_irq_disable](#local_irq_disable)
+              - [syscore_suspend](#syscore_suspend)
+              - [suspend_ops->enter](#suspend_ops->enter)
+
 
 ### state_store
 
