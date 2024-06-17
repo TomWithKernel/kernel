@@ -48,6 +48,97 @@ struct usb_device_descriptor {
 } __attribute__ ((packed));
 ```
 
+ USB设备描述符位于USB设备结构体usb_device中的成员descriptor中。同样地,配置、接口、端点描述符也是位于USB配置、接口、端点结构体中
+
+```c
+/**
+ * struct usb_device - kernel's representation of a USB device
+ */
+struct usb_device {
+	int		devnum;                    // 设备编号；在USB总线上的地址
+	char		devpath[16];              // 设备ID字符串，用于消息（例如，/port/...）
+	u32		route;                    // 树拓扑的十六进制字符串，用于xHCI
+	enum usb_device_state	state;                // 设备状态：配置、未连接等
+	enum usb_device_speed	speed;                // 设备速度：高/全/低（或错误）
+	unsigned int		rx_lanes;              // 使用中的接收通道数量，USB 3.2添加了双通道支持
+	unsigned int		tx_lanes;              // 使用中的传输通道数量，USB 3.2添加了双通道支持
+
+	struct usb_tt	*tt;                    // 事务转换器信息；用于低/全速设备、高速集线器
+	int		ttport;                   // 在事务转换器集线器上的设备端口
+	unsigned int toggle[2];                   // 每个端点一个位，([0] = 输入， [1] = 输出) 端点
+
+	struct usb_device *parent;                // 我们的集线器，除非我们是根
+	struct usb_bus *bus;                      // 我们所属的总线
+	struct usb_host_endpoint ep0;             // 端点0数据（默认控制管道）
+
+	struct device dev;                        // 通用设备接口
+	struct usb_device_descriptor descriptor;  // USB设备描述符
+	struct usb_host_bos *bos;                 // USB设备BOS描述符集
+	struct usb_host_config *config;           // 设备的所有配置
+
+	struct usb_host_config *actconfig;        // 活动配置
+	struct usb_host_endpoint *ep_in[16];      // 输入端点数组
+	struct usb_host_endpoint *ep_out[16];     // 输出端点数组
+
+	char **rawdescriptors;                    // 每个配置的原始描述符
+
+	unsigned short bus_mA;                    // 总线可用电流
+	u8 portnum;                               // 父端口号（起始值为1）
+	u8 level;                                 // USB集线器祖先的数量
+	u8 devaddr;                               // 设备地址，XHCI：由硬件分配，其他：与devnum相同
+
+	unsigned can_submit:1;                    // 可以提交URB
+	unsigned persist_enabled:1;               // 启用USB_PERSIST
+	unsigned reset_in_progress:1;             // 设备正在复位
+	unsigned have_langid:1;                   // string_langid是否有效
+	unsigned authorized:1;                    // 策略已允许我们使用它
+	unsigned authenticated:1;                 // 通过加密认证
+	unsigned wusb:1;                          // 设备是无线USB
+	unsigned lpm_capable:1;                   // 设备支持LPM
+	unsigned usb2_hw_lpm_capable:1;           // 设备可以执行USB2硬件LPM
+	unsigned usb2_hw_lpm_besl_capable:1;      // 设备可以执行USB2硬件BESL LPM
+	unsigned usb2_hw_lpm_enabled:1;           // 启用USB2硬件LPM
+	unsigned usb2_hw_lpm_allowed:1;           // 用户空间允许启用USB 2.0 LPM
+	unsigned usb3_lpm_u1_enabled:1;           // 启用USB3硬件U1 LPM
+	unsigned usb3_lpm_u2_enabled:1;           // 启用USB3硬件U2 LPM
+	int string_langid;                        // 字符串的语言ID
+
+	/* static strings from the device */
+	char *product;                            // 如果存在，iProduct字符串（静态）
+	char *manufacturer;                       // 如果存在，iManufacturer字符串（静态）
+	char *serial;                             // 如果存在，iSerialNumber字符串（静态）
+
+	struct list_head filelist;                // 此设备打开的usbfs文件
+
+	int maxchild;                             // 如果是集线器，端口数量
+
+	u32 quirks;                               // 设备的怪癖
+	atomic_t urbnum;                          // 提交的URB数量
+
+	unsigned long active_duration;            // 设备未挂起的总时间
+
+#ifdef CONFIG_PM
+	unsigned long connect_time;               // 设备首次连接时间
+
+	unsigned do_remote_wakeup:1;              // 启用远程唤醒
+	unsigned reset_resume:1;                  // 需要复位而不是恢复
+	unsigned port_is_suspended:1;             // 上游端口被挂起（L2或U3）
+#endif
+	struct wusb_dev *wusb_dev;                // 如果这是无线USB设备，则链接到设备的WUSB特定数据
+	int slot_id;                              // xHCI分配的插槽ID
+	enum usb_device_removable removable;      // 设备可以从此端口物理移除
+	struct usb2_lpm_parameters l1_params;     // USB2 L1 LPM状态的最佳努力服务延迟和L1超时
+	struct usb3_lpm_parameters u1_params;     // USB3 U1 LPM状态的退出延迟和集线器启动的超时
+	struct usb3_lpm_parameters u2_params;     // USB3 U2 LPM状态的退出延迟和集线器启动的超时
+	unsigned lpm_disable_count;               // Ref计数用于usb_disable_lpm()和usb_enable_lpm()跟踪需要禁用USB 3.0链路电源管理的函数数量。该计数应仅由这些函数在持有带宽互斥锁时操作。
+
+	u16 hub_delay;                            // 缓存值，包括：
+	                                          // parent->hub_delay + wHubDelay + tTPTransmissionDelay (40ns)
+	                                          // 将用作SetIsochDelay请求的wValue。
+	unsigned use_generic_driver:1;            // 请求驱动程序核心使用通用驱动程序重新探测。
+};
+```
+
 #### 配置描述符
 
 ``` c
@@ -81,6 +172,58 @@ struct usb_interface_descriptor {
     __u8  bInterfaceProtocol; //协议
     __u8  iInterface;//描述此接口的字串描述表的索引值  
 } __attribute__ ((packed));
+```
+
+它位于usb_interface->cur_altsetting->desc 这个成员结构体里
+
+```c
+/**
+ * struct usb_interface - what usb device drivers talk to
+ */
+struct usb_interface {
+	/* array of alternate settings for this interface,
+	 * stored in no particular order */
+	struct usb_host_interface *altsetting;              // 备用设置的数组，无特定顺序
+
+	struct usb_host_interface *cur_altsetting;          // 当前活动的备用设置
+	unsigned num_altsetting;                            // 定义的备用设置数量
+
+	/* If there is an interface association descriptor then it will list
+	 * the associated interfaces */
+	struct usb_interface_assoc_descriptor *intf_assoc;  // 接口关联描述符
+
+	int minor;                                          // 分配给此接口的次设备号
+	enum usb_interface_condition condition;             // 绑定状态
+	unsigned sysfs_files_created:1;                     // sysfs属性存在
+	unsigned ep_devs_created:1;                         // 端点伪设备存在
+	unsigned unregistering:1;                           // 注销中
+	unsigned needs_remote_wakeup:1;                     // 驱动程序需要远程唤醒
+	unsigned needs_altsetting0:1;                       // 切换到备用设置0待处理
+	unsigned needs_binding:1;                           // 需要延迟解除绑定/重新绑定
+	unsigned resetting_device:1;                        // 复位后需要带宽分配
+	unsigned authorized:1;                              // 接口授权
+
+	struct device dev;                                  // 接口特定的设备信息
+	struct device *usb_dev;                             // 如果接口绑定到USB主设备号，则指向该设备的sysfs表示
+	struct work_struct reset_ws;                        // 用于在原子上下文中复位的工作结构
+};
+```
+
+```c
+/* host-side wrapper for one interface setting's parsed descriptors */
+struct usb_host_interface {
+	struct usb_interface_descriptor desc;  // 接口描述符
+
+	int extralen;                          // 额外描述符的长度
+	unsigned char *extra;                  // 额外描述符
+
+	/* array of desc.bNumEndpoints endpoints associated with this
+	 * interface setting.  these will be in no particular order.
+	 */
+	struct usb_host_endpoint *endpoint;    // 该接口设置关联的端点数组，无特定顺序
+
+	char *string;                          // iInterface字符串，如果存在
+};
 ```
 
 #### 端点描述符
