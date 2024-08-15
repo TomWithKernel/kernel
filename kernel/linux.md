@@ -1,6 +1,16 @@
+title: linux kernel 基础知识
+
+date: 2024-07-10 10:09:00
+
+tags:
+
+categories: 
+
+---
+
+
+
 [TOC]
-
-
 
 ## 内存寻址
 

@@ -1,3 +1,13 @@
+title: kdump
+
+date: 2024-05-10 10:09:00
+
+tags:
+
+categories: dbg_meth
+
+---
+
 # Kdump
 
 kdump是在系统崩溃、死锁、或者死机的时候用来转储内存为vmcore保存到磁盘的一个工具和服务

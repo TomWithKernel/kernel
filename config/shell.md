@@ -1,3 +1,13 @@
+title: shell
+
+date: 2024-02-24 10:09:00
+
+tags:
+
+categories: config
+
+---
+
 # shell
 
 `sudo apt install    fzf   ripgrep`

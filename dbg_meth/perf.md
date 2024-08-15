@@ -1,3 +1,13 @@
+title: perf
+
+date: 2024-05-10 10:09:00
+
+tags:
+
+categories: dbg_meth
+
+---
+
 tar -xvf perf-5.10.0.tar.gz 
 cd perf-5.10.0
 cd tools/perf/

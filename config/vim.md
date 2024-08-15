@@ -1,3 +1,13 @@
+title: vim
+
+date: 2024-02-24 10:09:00
+
+tags:
+
+categories: config
+
+---
+
 # vim
 
 ### **安装Vim插件管理器 VimPlug**

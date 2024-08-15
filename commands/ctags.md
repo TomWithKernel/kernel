@@ -1,3 +1,13 @@
+title: ctags
+
+date: 2024-01-26 10:09:00
+
+tags:
+
+categories: commands
+
+---
+
 # ctags
 
 **生成索引文件  `ctags –R .`**

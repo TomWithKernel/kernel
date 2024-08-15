@@ -1,3 +1,13 @@
+title: linux 设备模型
+
+date: 2024-03-10 10:09:00
+
+tags:
+
+categories: 
+
+---
+
 ## linux 设备模型
 
 ### 基本结构

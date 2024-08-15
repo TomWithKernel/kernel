@@ -1,3 +1,13 @@
+title: gdb
+
+date: 2024-05-10 10:09:00
+
+tags:
+
+categories: dbg_meth
+
+---
+
 # gdb
 
 **编译程序加参数时生成调试信息**

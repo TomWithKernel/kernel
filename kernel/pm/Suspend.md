@@ -1,3 +1,13 @@
+title: Suspend (kernel 5.10)
+
+date: 2024-06-20 10:09:00
+
+tags:
+
+categories: PM
+
+---
+
 ## Suspend (kernel 5.10)
 
 - [state_store](#state_sotre)

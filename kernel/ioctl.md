@@ -1,3 +1,13 @@
+title: ioctl
+
+date: 2024-07-10 10:09:00
+
+tags:
+
+categories: 
+
+---
+
 ## ioctl
 
 在驱动程序的ioctl函数体中，实现了一个switch-case结构，每一个case对应一个命令码，case内部是驱动程序实现该命令的相关操作。

@@ -1,4 +1,15 @@
+title: README
+
+date: 2024-01-26 10:09:00
+
+tags:
+
+categories: 
+
+---
+
 # kernel
+
 Some learning methods about the linux kernel
 
 ## How to debug kernel

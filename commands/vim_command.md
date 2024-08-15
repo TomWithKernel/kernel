@@ -1,3 +1,13 @@
+title: vim
+
+date: 2024-01-26 10:09:00
+
+tags:
+
+categories: commands
+
+---
+
 # vim
 
 **vim打开文件：**

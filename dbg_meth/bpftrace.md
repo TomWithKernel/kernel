@@ -1,3 +1,13 @@
+title: bpftrace
+
+date: 2024-05-10 10:09:00
+
+tags:
+
+categories: dbg_meth
+
+---
+
 ## bpftrace
 
 - 探针

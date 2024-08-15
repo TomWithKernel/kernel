@@ -1,3 +1,13 @@
+title: tmux
+
+date: 2024-02-24 10:09:00
+
+tags:
+
+categories: config
+
+---
+
 # tmux
 
 插件，`tmux-continuum`  `plugins`放入~/.tmux文件夹

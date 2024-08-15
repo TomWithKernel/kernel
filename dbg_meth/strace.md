@@ -1,3 +1,13 @@
+title: strace
+
+date: 2024-05-10 10:09:00
+
+tags:
+
+categories: dbg_meth
+
+---
+
 ## strace
 
 strace会记录和解析命令进程的所有系统调用以及这个进程所接收到的所有的信号值
