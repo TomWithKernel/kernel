@@ -12,7 +12,7 @@ categories: USB
 
 ### USB子系统框架
 
-![usb](./img/usb.png) 
+{% asset_img usb.png usb %} 
 
 - USB设备驱动：用于和枚举到的USB设备进行绑定，完成特定的功能
 - USB Core：用于内核USB总线的初始化及USB相关API，为设备驱动和HCD的交互提供桥梁
@@ -27,7 +27,7 @@ categories: USB
 
 ### USB设备描述符
 
-![usb_intf_image](./img/usb_intf_image.png) 
+{% asset_img usb_intf_image.png usb_intf %}  
 
 - 一个USB设备描述符中可以有多个配置描述符，即USB设备可以有多种配置；一个配置描述符中可以有多个接口描述符，即USB设备可以支持多种功能（接口）；一个接口描述符中可以有多个端点描述符。
 - 一设备至少要包含设备描述符、配置描述符和接口描述符，如果USB设备没有端点描述符，则它仅仅用默认管道与主机进行数据传输。

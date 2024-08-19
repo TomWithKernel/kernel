@@ -12,7 +12,7 @@ categories: dbg_meth
 
 - 探针
 
-- ![probe](./img/probe.jpg)
+- {% asset_img probe.jpg probe %}
 
   kprobeb/kretprobe为动态跟踪、内核级探针，kprobeb是检测函数执行的开始，kretprobe为检测结束（返回）
 

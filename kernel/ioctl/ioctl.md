@@ -44,7 +44,7 @@ int (*ioctl) (struct inode *inode, struct file *fp, unsigned int request, unsign
 三、用户与驱动之间的ioctl协议构成
 也就是request或cmd，本质上就是一个32位数字，理论上可以是任何一个数，但为了保证命令码的唯一性，linux定义了一套严格的规定，通过计算得到这个命令吗数字。linux将32位划分为四段
 
-![ioctl](./img/ioctl.png) 
+{% asset_img ioctl.png ioctl %}
 
 - dir，即direction，表示ioctl命令的访问模式，分为无数据(_IO)、读数据(_IOR)、写数据(_IOW)、读写数据(_IOWR)四种模式。
 - type，即device type，表示设备类型，也可翻译成“幻数”或“魔数”，可以是任意一个char型字符，如’a’、‘b’、‘c’等，其主要作用是使ioctl命令具有唯一的设备标识。不过在内核中’w’、‘y’、'z’三个字符已经被使用了。
