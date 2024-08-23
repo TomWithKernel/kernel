@@ -2,8 +2,7 @@ title: strace
 
 date: 2024-05-10 10:09:00
 
-tags:
-
+tags: dbg_meth
 categories: dbg_meth
 
 ---

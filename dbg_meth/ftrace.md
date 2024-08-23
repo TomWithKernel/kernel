@@ -2,6 +2,7 @@
 title: ftrace
 date: 2024-08-22 10:33:06
 tags: dbg_meth
+categories: dbg_meth
 
 ---
 
