@@ -114,3 +114,54 @@ bindkey '^_' autosuggest-accept
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 export PATH=/usr/local/bin:$PATH
 
+
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# Set LS_COLORS environment by Deepin
+if [[ ("$TERM" = *256color || "$TERM" = screen* || "$TERM" = xterm* ) && -f /etc/lscolor-256color ]]; then
+    eval $(dircolors -b /etc/lscolor-256color)
+else
+    eval $(dircolors)
+fi
+
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	alias ls='ls --color=auto'
+	#alias dir='dir --color=auto'
+	#alias vdir='vdir --color=auto'
+	##alias grep='grep --color=auto'
+	##alias fgrep='fgrep --color=auto'
+	##alias egrep='egrep --color=auto'
+fi       
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+
+export PATH=./node_modules/.bin:$PATH
+
+# 设置 FZF 默认命令
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# 自定义 FZF 命令来打开选中的文件
+fzf-open() {
+  local file
+  file=$(fzf --preview "[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (rougify {}  || highlight -O ansi -l {} || coderay {} || cat {}) 2> /dev/null" --height 50% --reverse --border --select-1 --exit-0) && vim "$file"
+}
+
+# 将 Ctrl+F 绑定到 fzf-open
+bindkey -s '^F' 'fzf-open\n'
+
