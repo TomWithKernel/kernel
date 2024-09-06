@@ -219,6 +219,42 @@ lx-cpus               lx-fdtdump            lx-lsmod              lx-version
 lx-device-list-bus    lx-genpd-summary      lx-mounts  
 ```
 
+```shell
+(gdb) apropos lx
+function lx_clk_core_lookup -- Find struct clk_core by name
+function lx_current -- Return current task
+function lx_device_find_by_bus_name -- Find struct device by bus and name (both strings)
+function lx_device_find_by_class_name -- Find struct device by class and name (both strings)
+function lx_module -- Find module by name and return the module variable
+function lx_per_cpu -- Return per-cpu variable
+function lx_rb_first -- Lookup and return a node from an RBTree
+function lx_rb_last -- Lookup and return a node from an RBTree
+function lx_rb_next -- Lookup and return a node from an RBTree
+function lx_rb_prev -- Lookup and return a node from an RBTree
+function lx_task_by_pid -- Find Linux task by PID and return the task_struct variable
+function lx_thread_info -- Calculate Linux thread_info from task variable
+function lx_thread_info_by_pid -- Calculate Linux thread_info from task variable found by pid
+lx-clk-summary -- Print clk tree summary
+lx-cmdline --  Report the Linux Commandline used in the current kernel
+lx-configdump -- Output kernel config to the filename specified as the command
+lx-cpus -- List CPU status arrays
+lx-device-list-bus -- Print devices on a bus (or all buses if not specified)
+lx-device-list-class -- Print devices in a class (or all classes if not specified)
+lx-device-list-tree -- Print a device and its children recursively
+lx-dmesg -- Print Linux kernel log buffer
+lx-fdtdump -- Output Flattened Device Tree header and dump FDT blob to the filename
+lx-genpd-summary -- Print genpd summary
+lx-iomem -- Identify the IO memory resource locations defined by the kernel
+lx-ioports -- Identify the IO port resource locations defined by the kernel
+lx-list-check -- Verify a list consistency
+lx-lsmod -- List currently loaded modules
+lx-mounts -- Report the VFS mounts of the current process namespace
+lx-ps -- Dump Linux tasks
+lx-symbols -- (Re-)load symbols of Linux kernel and currently loaded modules
+lx-timerlist -- Print /proc/timer_list
+lx-version --  Report the Linux Version of the current kernel
+```
+
 对于`(gdb) lx-symbols`时出现：
 
 ```shell
