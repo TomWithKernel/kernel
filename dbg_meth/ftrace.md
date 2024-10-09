@@ -132,3 +132,12 @@ sudo trace-cmd record -p function_graph --max-graph-depth 2 -P 1656
 
 
 
+- 直接跟踪执行命令
+
+```shell
+sudo trace-cmd record -p function_graph smartctl -i /dev/sg1
+sudo trace-cmd report
+```
+
+
+
